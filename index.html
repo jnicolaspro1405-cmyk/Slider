@@ -13,111 +13,82 @@
 }
 
 body{
-  background:#111;
-  display:flex;
-  justify-content:center;
-  align-items:center;
+  background:#000;
   height:100vh;
+  overflow:hidden;
   font-family:Arial, sans-serif;
 }
 
 .slider{
   position:relative;
-  width:90%;
-  max-width:900px;
+  width:100vw;
+  height:100vh;
   overflow:hidden;
-  border-radius:20px;
-  box-shadow:0 15px 40px rgba(0,0,0,0.5);
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .slides{
   display:flex;
-  transition:transform 0.8s ease-in-out;
+  height:100%;
+  transition:transform 1s ease-in-out;
 }
 
 .slide{
   min-width:100%;
+  display:flex;
+  justify-content:center;
+  align-items:center;
 }
 
 .slide img{
-  width:100%;
-  height:500px;
-  object-fit:cover;
-  display:block;
+  width:90vmin;
+  height:90vmin;
+  object-fit:contain;
 }
 
-/* Flechas */
+/* Flechas minimalistas */
 .arrow{
   position:absolute;
   top:50%;
   transform:translateY(-50%);
-  background:rgba(0,0,0,0.5);
-  color:white;
+  background:none;
   border:none;
-  font-size:30px;
-  padding:15px;
+  color:white;
+  font-size:50px;
   cursor:pointer;
-  border-radius:50%;
   transition:0.3s;
 }
 
 .arrow:hover{
-  background:rgba(255,255,255,0.8);
-  color:black;
+  opacity:0.4;
 }
 
-.left{ left:20px; }
-.right{ right:20px; }
+.left{ left:30px; }
+.right{ right:30px; }
 
-/* Puntos */
+/* Ocultamos puntos */
 .dots{
-  position:absolute;
-  bottom:20px;
-  left:50%;
-  transform:translateX(-50%);
-  display:flex;
-  gap:10px;
-}
-
-.dot{
-  width:12px;
-  height:12px;
-  border-radius:50%;
-  background:white;
-  opacity:0.5;
-  cursor:pointer;
-  transition:0.3s;
-}
-
-.dot.active{
-  opacity:1;
-  transform:scale(1.3);
-}
-
-/* Responsive */
-@media (max-width:768px){
-  .slide img{
-    height:300px;
-  }
+  display:none;
 }
 </style>
 </head>
+
 <body>
 
 <div class="slider">
 
   <div class="slides">
-    <div class="slide"><img src="ILUbol2.png"></div>
-    <div class="slide"><img src="ILUbol3.png"></div>
-    <div class="slide"><img src="ILUbol4.png"></div>
-    <div class="slide"><img src="ILUbol5.png"></div>
-    <div class="slide"><img src="ILUbol6.png"></div>
+    <div class="slide"><img src="ILUbol2.png" alt=""></div>
+    <div class="slide"><img src="ILUbol3.png" alt=""></div>
+    <div class="slide"><img src="ILUbol4.png" alt=""></div>
+    <div class="slide"><img src="ILUbol5.png" alt=""></div>
+    <div class="slide"><img src="ILUbol6.png" alt=""></div>
   </div>
 
   <button class="arrow left">&#10094;</button>
   <button class="arrow right">&#10095;</button>
-
-  <div class="dots"></div>
 
 </div>
 
@@ -126,31 +97,13 @@ const slides = document.querySelector('.slides');
 const slide = document.querySelectorAll('.slide');
 const left = document.querySelector('.left');
 const right = document.querySelector('.right');
-const dotsContainer = document.querySelector('.dots');
 
 let index = 0;
 let interval;
 
-/* Crear puntos */
-slide.forEach((_, i)=>{
-  const dot = document.createElement('div');
-  dot.classList.add('dot');
-  if(i === 0) dot.classList.add('active');
-  dot.addEventListener('click', ()=> moveToSlide(i));
-  dotsContainer.appendChild(dot);
-});
-
-const dots = document.querySelectorAll('.dot');
-
-function updateDots(){
-  dots.forEach(dot=>dot.classList.remove('active'));
-  dots[index].classList.add('active');
-}
-
 function moveToSlide(i){
   index = i;
   slides.style.transform = `translateX(-${index * 100}%)`;
-  updateDots();
 }
 
 function nextSlide(){
@@ -166,9 +119,9 @@ function prevSlide(){
 right.addEventListener('click', nextSlide);
 left.addEventListener('click', prevSlide);
 
-/* Auto slide */
+/* Auto slide cada 8 segundos */
 function startAuto(){
-  interval = setInterval(nextSlide, 4000);
+  interval = setInterval(nextSlide, 8000);
 }
 
 function stopAuto(){
@@ -177,7 +130,7 @@ function stopAuto(){
 
 startAuto();
 
-/* Pausa al pasar mouse */
+/* Pausa cuando el mouse está encima */
 document.querySelector('.slider').addEventListener('mouseover', stopAuto);
 document.querySelector('.slider').addEventListener('mouseout', startAuto);
 
@@ -185,4 +138,3 @@ document.querySelector('.slider').addEventListener('mouseout', startAuto);
 
 </body>
 </html>
-
