@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta charset="UTF-8">
 <title>Slider</title>
 
@@ -14,7 +13,6 @@ body {
 .slider {
   position: relative;
   width: 100%;
-  max-width: 100%;
   overflow: hidden;
 }
 
@@ -26,30 +24,31 @@ body {
 .slide.active {
   display: block;
 }
-@media (max-width: 900px) { 
-img { 
-   max-width: 100%;
-   height: auto;
+
+/* Flechas */
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.4);
+  color: white;
+  border: none;
+  font-size: 24px;
+  padding: 10px 15px;
+  cursor: pointer;
 }
 
-.table-container {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
+.arrow.left {
+  left: 10px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
+.arrow.right {
+  right: 10px;
 }
 
-td, th {
-    padding: 8px;
-    text-align: left;
-    border: 1px solid #ddd;
+.arrow:hover {
+  background: rgba(0,0,0,0.7);
 }
-}	
-
-
 </style>
 </head>
 
@@ -61,6 +60,9 @@ td, th {
   <img class="slide" src="ILUbol4.png">
   <img class="slide" src="ILUbol5.png">
   <img class="slide" src="ILUbol6.png">
+
+  <button class="arrow left" onclick="prevSlide()">&#10094;</button>
+  <button class="arrow right" onclick="nextSlide()">&#10095;</button>
 </div>
 
 <script>
@@ -77,12 +79,15 @@ function nextSlide() {
   showSlide(index);
 }
 
+function prevSlide() {
+  index = (index - 1 + slides.length) % slides.length;
+  showSlide(index);
+}
+
 showSlide(index);
 setInterval(nextSlide, 4000);
 </script>
 
-<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v67327c56f0bb4ef8b305cae61679db8f1769101564043" integrity="sha512-rdcWY47ByXd76cbCFzznIcEaCN71jqkWBBqlwhF1SY7KubdLKZiEGeP7AyieKZlGP9hbY/MhGrwXzJC/HulNyg==" data-cf-beacon='{"version":"2024.11.0","token":"4581d6a58cf94e929fad52deda295622","r":1,"server_timing":{"name":{"cfCacheStatus":true,"cfEdge":true,"cfExtPri":true,"cfL4":true,"cfOrigin":true,"cfSpeedBrain":true},"location_startswith":null}}' crossorigin="anonymous"></script>
 </body>
-
 </html>
 
